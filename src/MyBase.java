@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import processing.app.Preferences;
 import processing.app.Sketch;
 import processing.app.debug.Compiler;
 import processing.app.debug.Target;
+import processing.core.PApplet;
 
 public class MyBase extends Base {
 
@@ -22,15 +24,17 @@ public class MyBase extends Base {
 	static public String init(String[] args) {
 
 		if (args.length < 1) {
-			throw new IllegalArgumentException("A *.pde file must be specified.");
+			throw new IllegalArgumentException(
+					"A *.pde file must be specified.");
 		}
 		if (args.length < 2) {
-			throw new IllegalArgumentException("A serial port must be specified.");
+			throw new IllegalArgumentException(
+					"A serial port must be specified.");
 		}
 		String pdeFile = args[0];
 		String serialPort = args[1];
 		String board = args.length >= 3 ? args[2] : "uno";
-		
+
 		System.out.printf("Compiling file:    %s\n", pdeFile);
 		System.out.printf("Using board:       %s\n", board);
 		System.out.printf("Using serial port: %s\n", serialPort);
@@ -39,7 +43,8 @@ public class MyBase extends Base {
 		imports = new HashMap<String, File>();
 		targetsTable = new HashMap<String, Target>();
 
-		System.setProperty("javaroot","/Applications/Arduino.app/Contents/Resources/Java/");
+		System.setProperty("javaroot",
+				"/Applications/Arduino.app/Contents/Resources/Java/");
 
 		Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
 
@@ -134,4 +139,5 @@ public class MyBase extends Base {
 			targetsTable.put(target, new MyTarget(target, subfolder));
 		}
 	}
+
 }
