@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="var" path="ARDUINO_HOME/ecj.jar"/>
-	<classpathentry kind="var" path="ARDUINO_HOME/jna.jar"/>
-	<classpathentry kind="var" path="ARDUINO_HOME/pde.jar"/>
-	<classpathentry kind="var" path="ARDUINO_HOME/RXTXcomm.jar"/>
-	<classpathentry kind="var" path="ARDUINO_HOME/core.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/ecj.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/jna.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/pde.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/RXTXcomm.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
