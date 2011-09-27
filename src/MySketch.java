@@ -42,8 +42,8 @@ public class MySketch extends Sketch {
 		compile();
 		this.upload(tempBuildFolder, primaryClassName, true);
 	}
-	
-	private void setField(String fieldName, Object value){
+
+	private void setField(String fieldName, Object value) {
 		try {
 			Field field = Sketch.class.getDeclaredField(fieldName);
 			field.setAccessible(true);
@@ -72,7 +72,6 @@ public class MySketch extends Sketch {
 		codeCount = 0;
 
 		code = new SketchCode[list.length];
-		setField("code", code);
 
 		String[] extensions = getExtensions();
 
@@ -122,6 +121,8 @@ public class MySketch extends Sketch {
 				break;
 			}
 		}
+
+		setField("code", code);
 
 		// sort the entries at the top
 		sortCode();
