@@ -32,18 +32,19 @@ public class MyBase extends Base {
 		loadHardware2(getHardwareFolder());
 		loadHardware2(getSketchbookHardwareFolder());
 
+		Preferences.setInteger("editor.tabs.size", 2);
+
 		Preferences.set("target", "arduino");
 		Preferences.set("upload.using", "bootloader");
 
 		// todo: make configurable.
 		Preferences.set("board", "uno");
-		Preferences.set("serial.port", "/dev/tty.serial");
-		Preferences.setInteger("databits", 8);
-		Preferences.setInteger("stopbits", 1);
-		Preferences.set("parity", "N");
-		Preferences.setInteger("debug_rate", 9600);
 
-		Preferences.setInteger("editor.tabs.size", 2);
+		Preferences.set("serial.port", "/dev/tty.usbmodemfa141");
+		Preferences.setInteger("serial.databits", 8);
+		Preferences.setInteger("serial.stopbits", 1);
+		Preferences.set("serial.parity", "N");
+		Preferences.setInteger("serial.debug_rate", 9600);
 
 		addLibraries();
 	}
