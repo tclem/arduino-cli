@@ -1,8 +1,6 @@
+package com.github.tclem.arduinocli;
 import java.io.IOException;
-import java.util.Map;
 
-import processing.app.Base;
-import processing.app.Preferences;
 import processing.app.SerialException;
 import processing.app.debug.RunnerException;
 

@@ -1,3 +1,5 @@
+package com.github.tclem.arduinocli;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,9 +9,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.zip.GZIPInputStream;
 
-import processing.app.Sketch;
 import processing.app.SketchCode;
-import processing.core.PApplet;
 
 public class MySketchCode extends SketchCode {
 

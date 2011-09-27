@@ -1,3 +1,5 @@
+package com.github.tclem.arduinocli;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,7 +12,6 @@ import java.util.regex.Pattern;
 import processing.app.Preferences;
 import processing.app.Sketch;
 import processing.app.preproc.PdePreprocessor;
-import processing.core.PApplet;
 
 public class MyPdePreprocessor extends PdePreprocessor {
 

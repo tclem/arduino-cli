@@ -1,3 +1,5 @@
+package com.github.tclem.arduinocli;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -10,8 +12,6 @@ import processing.app.Sketch;
 import processing.app.SketchCode;
 import processing.app.debug.Compiler;
 import processing.app.debug.RunnerException;
-import processing.app.preproc.PdePreprocessor;
-import processing.core.PApplet;
 
 public class MySketch extends Sketch {
 

@@ -1,6 +1,6 @@
+package com.github.tclem.arduinocli;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,7 +11,6 @@ import processing.app.Preferences;
 import processing.app.Sketch;
 import processing.app.debug.Compiler;
 import processing.app.debug.Target;
-import processing.core.PApplet;
 
 public class MyBase extends Base {
 

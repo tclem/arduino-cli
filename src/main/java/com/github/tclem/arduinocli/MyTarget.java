@@ -1,3 +1,5 @@
+package com.github.tclem.arduinocli;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,9 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import processing.app.Preferences;
 import processing.app.debug.Target;
-import processing.core.PApplet;
 
 public class MyTarget extends Target {
 
