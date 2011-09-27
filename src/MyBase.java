@@ -131,7 +131,7 @@ public class MyBase extends Base {
 
 		for (String target : list) {
 			File subfolder = new File(folder, target);
-			targetsTable.put(target, new Target(target, subfolder));
+			targetsTable.put(target, new MyTarget(target, subfolder));
 		}
 	}
 }

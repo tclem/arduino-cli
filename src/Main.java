@@ -19,8 +19,14 @@ public class Main {
 
 		String pdeFile = MyBase.init(args);
 
-		MySketch sketch = new MySketch(null, pdeFile);
-		sketch.compile();
+		try {
+			MySketch sketch = new MySketch(null, pdeFile);
+			sketch.compile();
+			System.exit(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		// sketch.compileAndDeploy();
 	}
 
