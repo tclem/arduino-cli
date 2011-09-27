@@ -17,8 +17,6 @@ public class Main {
 	public static void main(String[] args) throws IOException, RunnerException,
 			SerialException {
 
-		System.out.println("invoking arduino compile");
-
 		MyBase.init(args);
 
 		// These need to be set to the proper values
