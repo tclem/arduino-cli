@@ -16,45 +16,54 @@ public class MyBase extends Base {
 	public MyBase(String[] args) {
 		super(args);
 	}
-	
+
 	static Map<String, File> imports;
 
 	static public void init(String[] args) {
 
 		imports = new HashMap<String, File>();
-		
-		System.setProperty("javaroot", "/Applications/Arduino.app/Contents/Resources/Java/");
+
+		System.setProperty("javaroot",
+				"/Applications/Arduino.app/Contents/Resources/Java/");
 
 		Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
-		
-		targetsTable  = new HashMap<String, Target>();
+
+		targetsTable = new HashMap<String, Target>();
 		loadHardware2(getHardwareFolder());
 		loadHardware2(getSketchbookHardwareFolder());
-		
+
 		Preferences.set("target", "arduino");
+		Preferences.set("upload.using", "bootloader");
+
+		// todo: make configurable.
 		Preferences.set("board", "uno");
-		
+		Preferences.set("serial.port", "/dev/tty.serial");
+		Preferences.setInteger("databits", 8);
+		Preferences.setInteger("stopbits", 1);
+		Preferences.set("parity", "N");
+		Preferences.setInteger("debug_rate", 9600);
+
 		Preferences.setInteger("editor.tabs.size", 2);
-		
+
 		addLibraries();
 	}
-	
+
 	private static void addLibraries() {
 		try {
 			addLibraries(getContentFile("libraries"));
 			addLibraries(getSketchbookLibrariesFolder());
 
 			System.out.println(imports);
-			
+
 			Field field = Base.class.getDeclaredField("importToLibraryTable");
 			field.setAccessible(true);
 			field.set(null, imports);
-			
-		} catch(Throwable e) {
+
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void addLibraries(File folder) {
 		String list[] = folder.list(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
@@ -73,7 +82,7 @@ public class MyBase extends Base {
 			if (!sanityCheck.equals(potentialName))
 				continue;
 
-			//String libraryName = potentialName;
+			// String libraryName = potentialName;
 			String packages[] = Compiler.headerListFromIncludePath(subfolder
 					.getAbsolutePath());
 			for (String pkg : packages) {
