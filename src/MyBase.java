@@ -19,16 +19,30 @@ public class MyBase extends Base {
 
 	static Map<String, File> imports;
 
-	static public void init(String[] args) {
+	static public String init(String[] args) {
 
+		if (args.length < 1) {
+			throw new IllegalArgumentException("A *.pde file must be specified.");
+		}
+		if (args.length < 2) {
+			throw new IllegalArgumentException("A serial port must be specified.");
+		}
+		String pdeFile = args[0];
+		String serialPort = args[1];
+		String board = args.length >= 3 ? args[2] : "uno";
+		
+		System.out.printf("Compiling file:    %s\n", pdeFile);
+		System.out.printf("Using board:       %s\n", board);
+		System.out.printf("Using serial port: %s\n", serialPort);
+
+		// Mock out the Arduino IDE minimal setup
 		imports = new HashMap<String, File>();
+		targetsTable = new HashMap<String, Target>();
 
-		System.setProperty("javaroot",
-				"/Applications/Arduino.app/Contents/Resources/Java/");
+		System.setProperty("javaroot","/Applications/Arduino.app/Contents/Resources/Java/");
 
 		Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
 
-		targetsTable = new HashMap<String, Target>();
 		loadHardware2(getHardwareFolder());
 		loadHardware2(getSketchbookHardwareFolder());
 
@@ -37,16 +51,17 @@ public class MyBase extends Base {
 		Preferences.set("target", "arduino");
 		Preferences.set("upload.using", "bootloader");
 
-		// todo: make configurable.
-		Preferences.set("board", "uno");
+		Preferences.set("board", board);
+		Preferences.set("serial.port", serialPort);
 
-		Preferences.set("serial.port", "/dev/tty.usbmodemfa141");
 		Preferences.setInteger("serial.databits", 8);
 		Preferences.setInteger("serial.stopbits", 1);
 		Preferences.set("serial.parity", "N");
 		Preferences.setInteger("serial.debug_rate", 9600);
 
 		addLibraries();
+
+		return pdeFile;
 	}
 
 	private static void addLibraries() {

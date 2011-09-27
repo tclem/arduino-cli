@@ -17,19 +17,11 @@ public class Main {
 	public static void main(String[] args) throws IOException, RunnerException,
 			SerialException {
 
-		MyBase.init(args);
+		String pdeFile = MyBase.init(args);
 
-		// These need to be set to the proper values
-		Preferences.set("board", "uno");
-		Preferences.set("serial.port", "/dev/tty.usbmodemfa141");
-
-		MySketch sketch = new MySketch(
-				null,
-				"/Applications/Arduino.app/Contents/Resources/Java/examples/1.Basics/Blink/Blink.pde");
-		// MySketch sketch = new MySketch(null,
-		// "/Users/tclem/Documents/Arduino/DoorMe/Doorme.pde");
-		// sketch.compile();
-		sketch.compileAndDeploy();
+		MySketch sketch = new MySketch(null, pdeFile);
+		sketch.compile();
+		// sketch.compileAndDeploy();
 	}
 
 }
