@@ -1,4 +1,5 @@
 package com.github.tclem.arduinocli;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.lang.reflect.Field;
@@ -18,24 +19,34 @@ public class MyBase extends Base {
 		super(args);
 	}
 
+	public static Boolean deploy = false;
+
 	static Map<String, File> imports;
 
 	static public String init(String[] args) {
 
 		if (args.length < 1) {
 			throw new IllegalArgumentException(
-					"A *.pde file must be specified.");
+					"You must specify -c (compile) or -d (compile and deploy).");
 		}
 		if (args.length < 2) {
 			throw new IllegalArgumentException(
+					"A *.pde file must be specified.");
+		}
+		if (args.length < 3) {
+			throw new IllegalArgumentException(
 					"A serial port must be specified.");
 		}
-		String pdeFile = args[0];
-		String serialPort = args[1];
-		String board = args.length >= 3 ? args[2] : "uno";
+		if (args[0].compareToIgnoreCase("-d") == 0) {
+			deploy = true;
+		}
+		String pdeFile = args[1];
+		String serialPort = args[2];
+		String board = args.length >= 4 ? args[3] : "uno";
 
-		System.out.printf("Compiling file:    %s\n", pdeFile);
-		System.out.printf("Using board:       %s\n", board);
+		System.out.printf("Compiling%s file: %s\n", deploy ? " and deploying"
+				: "", pdeFile);
+		System.out.printf("Using board: %s\n", board);
 		System.out.printf("Using serial port: %s\n", serialPort);
 
 		// Mock out the Arduino IDE minimal setup

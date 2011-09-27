@@ -1,4 +1,5 @@
 package com.github.tclem.arduinocli;
+
 import java.io.IOException;
 
 import processing.app.SerialException;
@@ -19,13 +20,18 @@ public class Main {
 
 		try {
 			MySketch sketch = new MySketch(null, pdeFile);
-			sketch.compile();
+
+			if (MyBase.deploy)
+				sketch.compileAndDeploy();
+			else
+				sketch.compile();
+
 			System.exit(0);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		// sketch.compileAndDeploy();
 	}
 
 }
