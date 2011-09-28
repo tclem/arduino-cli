@@ -53,10 +53,12 @@ public class MyBase extends Base {
 		imports = new HashMap<String, File>();
 		targetsTable = new HashMap<String, Target>();
 
-		System.setProperty("javaroot",
-				"/Applications/Arduino.app/Contents/Resources/Java/");
+		// On OS X this should be: /Applications/Arduino.app/Contents/Resources/Java/
+		System.setProperty("user.dir", System.getProperty("java.library.path")); // Used by *nix
+		System.setProperty("javaroot", System.getProperty("java.library.path")); // Used by OS X
 
-		Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
+		//Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
+		Preferences.set("sketchbook.path", System.getProperty("arduino.sketchbook"));
 
 		loadHardware2(getHardwareFolder());
 		loadHardware2(getSketchbookHardwareFolder());
