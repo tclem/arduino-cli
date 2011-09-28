@@ -32,9 +32,8 @@ public class MySketch extends Sketch {
 		primaryClassName = preprocess(tempBuildFolder, pp);
 		System.out.println(pp.getExtraImports());
 
-		Compiler compiler = new Compiler();
-		Boolean res = compiler.compile(this, tempBuildFolder, primaryClassName,
-				true);
+		Compiler compiler = new MyCompiler();
+		Boolean res = compiler.compile(this, tempBuildFolder, primaryClassName, false);
 		System.out.printf("Compilation %s.\n", res ? "succeeded" : "failed");
 	}
 
