@@ -54,8 +54,11 @@ public class MyBase extends Base {
 		targetsTable = new HashMap<String, Target>();
 
 		// On OS X this should be: /Applications/Arduino.app/Contents/Resources/Java/
-		System.setProperty("user.dir", System.getProperty("java.library.path")); // Used by *nix
-		System.setProperty("javaroot", System.getProperty("java.library.path")); // Used by OS X
+		String path = System.getProperty("java.library.path");
+		if (!path.endsWith("/")) path = path + "/";
+		System.out.printf("Using javaroot: %s\n", path);
+		System.setProperty("user.dir", path); // Used by *nix
+		System.setProperty("javaroot", path); // Used by OS X
 
 		//Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
 		Preferences.set("sketchbook.path", System.getProperty("arduino.sketchbook"));
@@ -86,7 +89,7 @@ public class MyBase extends Base {
 			addLibraries(getContentFile("libraries"));
 			addLibraries(getSketchbookLibrariesFolder());
 
-			System.out.println(imports);
+			//System.out.println(imports);
 
 			Field field = Base.class.getDeclaredField("importToLibraryTable");
 			field.setAccessible(true);

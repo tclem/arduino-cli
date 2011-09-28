@@ -24,9 +24,7 @@ public class MySketch extends Sketch {
 
 	public void compile() throws RunnerException {
 		tempBuildFolder = Base.getBuildFolder().getAbsolutePath();
-		System.out.println(tempBuildFolder);
-
-		// load();
+//		System.out.println(tempBuildFolder);
 
 		MyPdePreprocessor pp = new MyPdePreprocessor();
 		primaryClassName = preprocess(tempBuildFolder, pp);
