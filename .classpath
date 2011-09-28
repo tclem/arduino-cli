@@ -7,6 +7,6 @@
 	<classpathentry kind="var" path="ARDUINO_LIB/jna.jar"/>
 	<classpathentry kind="var" path="ARDUINO_LIB/pde.jar" sourcepath="/ARDUINO_SRC/app"/>
 	<classpathentry kind="var" path="ARDUINO_LIB/RXTXcomm.jar"/>
-	<classpathentry kind="var" path="ARDUINO_LIB/core.jar"/>
+	<classpathentry kind="var" path="ARDUINO_LIB/core.jar" sourcepath="/ARDUINO_SRC"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
