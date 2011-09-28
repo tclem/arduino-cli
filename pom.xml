@@ -123,5 +123,12 @@
 			<scope>system</scope>
 			<systemPath>${arduino.lib}/pde.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>cc.arduino</groupId>
+			<artifactId>RXTXcomm</artifactId>
+			<version>0022</version>
+			<scope>system</scope>
+			<systemPath>${arduino.lib}/RXTXcomm.jar</systemPath>
+		</dependency>
 	</dependencies>
 </project>
