@@ -37,7 +37,7 @@ public class MySketch extends Sketch {
 
 	public void compileAndDeploy() throws RunnerException, SerialException {
 		compile();
-		this.upload(tempBuildFolder, primaryClassName, true);
+		this.upload(tempBuildFolder, primaryClassName, false);
 	}
 
 	private void setField(String fieldName, Object value) {

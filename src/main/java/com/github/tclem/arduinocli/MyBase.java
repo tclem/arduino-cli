@@ -60,7 +60,6 @@ public class MyBase extends Base {
 		System.setProperty("user.dir", path); // Used by *nix
 		System.setProperty("javaroot", path); // Used by OS X
 
-		//Preferences.set("sketchbook.path", "/Users/tclem/Documents/Arduino/");
 		Preferences.set("sketchbook.path", System.getProperty("arduino.sketchbook"));
 
 		loadHardware2(getHardwareFolder());
@@ -78,6 +77,9 @@ public class MyBase extends Base {
 		Preferences.setInteger("serial.stopbits", 1);
 		Preferences.set("serial.parity", "N");
 		Preferences.setInteger("serial.debug_rate", 9600);
+
+		Preferences.setBoolean("upload.verbose", true);
+		Preferences.set("programmer", "avrispmkii");
 
 		addLibraries();
 
