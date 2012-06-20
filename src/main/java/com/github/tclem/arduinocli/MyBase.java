@@ -113,7 +113,7 @@ public class MyBase extends Base {
 	      }
 
 	      Preferences.set(key, value);
-	      System.out.printf("%s = %s\n", key, value);
+	      //System.out.printf("%s = %s\n", key, value);
 	    }
 	}
 
