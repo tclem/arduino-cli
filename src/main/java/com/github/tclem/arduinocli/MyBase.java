@@ -1,10 +1,14 @@
 package com.github.tclem.arduinocli;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import processing.app.Base;
@@ -24,6 +28,16 @@ public class MyBase extends Base {
 	static Map<String, File> imports;
 
 	static public String init(String[] args) {
+
+		// On OS X this should be: /Applications/Arduino.app/Contents/Resources/Java/
+		String path = System.getProperty("java.library.path");
+		if (!path.endsWith("/")) path = path + "/";
+		System.out.printf("javaroot: %s\n", path);
+		System.setProperty("user.dir", path); // Used by *nix
+		System.setProperty("javaroot", path); // Used by OS X
+
+		initPlatform();
+		loadPreferences();
 
 		if (args.length < 1) {
 			throw new IllegalArgumentException(
@@ -46,45 +60,90 @@ public class MyBase extends Base {
 
 		System.out.printf("Compiling%s file: %s\n", deploy ? " and deploying"
 				: "", pdeFile);
-		System.out.printf("Using board: %s\n", board);
-		System.out.printf("Using serial port: %s\n", serialPort);
+		System.out.printf("board: %s\n", board);
+		System.out.printf("serial port: %s\n", serialPort);
 
 		// Mock out the Arduino IDE minimal setup
 		imports = new HashMap<String, File>();
 		targetsTable = new HashMap<String, Target>();
 
-		// On OS X this should be: /Applications/Arduino.app/Contents/Resources/Java/
-		String path = System.getProperty("java.library.path");
-		if (!path.endsWith("/")) path = path + "/";
-		System.out.printf("Using javaroot: %s\n", path);
-		System.setProperty("user.dir", path); // Used by *nix
-		System.setProperty("javaroot", path); // Used by OS X
-
-		Preferences.set("sketchbook.path", System.getProperty("arduino.sketchbook"));
-
 		loadHardware2(getHardwareFolder());
 		loadHardware2(getSketchbookHardwareFolder());
-
-		Preferences.setInteger("editor.tabs.size", 2);
-
-		Preferences.set("target", "arduino");
-		Preferences.set("upload.using", "bootloader");
-
-		Preferences.set("board", board);
-		Preferences.set("serial.port", serialPort);
-
-		Preferences.setInteger("serial.databits", 8);
-		Preferences.setInteger("serial.stopbits", 1);
-		Preferences.set("serial.parity", "N");
-		Preferences.setInteger("serial.debug_rate", 9600);
-
-		Preferences.setBoolean("upload.verbose", true);
-		Preferences.set("programmer", "avrispmkii");
-
 		addLibraries();
 
 		return pdeFile;
 	}
+
+	private static void loadPreferences() {
+		try {
+			load(getLibStream("preferences.txt"));
+			load(new FileInputStream(getSettingsFile("preferences.txt")));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void load(InputStream input) {
+		Hashtable table = new Hashtable();
+
+		String[] lines = MySketchCode.loadStrings(input);  // Reads as UTF-8
+	    for (String line : lines) {
+	      if ((line.length() == 0) ||
+	          (line.charAt(0) == '#')) continue;
+
+	      // this won't properly handle = signs being in the text
+	      int equals = line.indexOf('=');
+	      if (equals != -1) {
+	        String key = line.substring(0, equals).trim();
+	        String value = line.substring(equals + 1).trim();
+	        table.put(key, value);
+	      }
+	    }
+
+		// check for platform-specific properties in the defaults
+	    String platformExt = "." + platformNames[pa_platform];
+	    int platformExtLength = platformExt.length();
+	    Enumeration e = table.keys();
+	    while (e.hasMoreElements()) {
+	      String key = (String) e.nextElement();
+	      String value = (String) table.get(key);
+	      if (key.endsWith(platformExt)) {
+	        // this is a key specific to a particular platform
+	        key = key.substring(0, key.length() - platformExtLength);
+	      }
+
+	      Preferences.set(key, value);
+	      System.out.printf("%s = %s\n", key, value);
+	    }
+	}
+
+	// platform IDs for PApplet.platform
+
+	static final int OTHER   = 0;
+	static final int WINDOWS = 1;
+	static final int MACOSX  = 2;
+	static final int LINUX   = 3;
+
+	static final String[] platformNames = {
+		"other", "windows", "macosx", "linux"
+	};
+	static public int pa_platform;
+	static {
+	    String osname = System.getProperty("os.name");
+
+	    if (osname.indexOf("Mac") != -1) {
+	      pa_platform = MACOSX;
+
+	    } else if (osname.indexOf("Windows") != -1) {
+	      pa_platform = WINDOWS;
+
+	    } else if (osname.equals("Linux")) {  // true for the ibm vm
+	      pa_platform = LINUX;
+
+	    } else {
+	      pa_platform = OTHER;
+	    }
+	  }
 
 	private static void addLibraries() {
 		try {
