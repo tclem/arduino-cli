@@ -50,6 +50,10 @@ public class MySketch extends Sketch {
 		}
 	}
 
+	public void setCompilingProgress(int percent) {
+		System.out.printf("%d\r", percent);
+	}
+
 	protected void load() {
 		File folder = getFolder();
 		File codeFolder = getCodeFolder();
