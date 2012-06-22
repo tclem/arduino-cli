@@ -63,6 +63,9 @@ public class MyBase extends Base {
 		System.out.printf("board: %s\n", board);
 		System.out.printf("serial port: %s\n", serialPort);
 
+		Preferences.set("board", board);
+		Preferences.set("serial.port", serialPort);
+
 		// Mock out the Arduino IDE minimal setup
 		imports = new HashMap<String, File>();
 		targetsTable = new HashMap<String, Target>();
